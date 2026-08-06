@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palindrome Checker</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.card{
+width:420px;
+background:white;
+padding:35px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+h1{
+color:#5b4bc4;
+margin-bottom:10px;
+}
+
+p{
+color:#666;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+border:2px solid #dcdcdc;
+border-radius:10px;
+outline:none;
+font-size:16px;
+transition:0.3s;
+}
+
+input:focus{
+border-color:#667eea;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+#result{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+.stats{
+margin-top:15px;
+color:#555;
+font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>🔍 Palindrome Checker</h1>
+<p>Using Function Types, Scope, Closures & Try-Catch</p>
+
+<input type="text" id="textInput" placeholder="Enter a word or phrase">
+
+<button onclick="checkPalindrome()">
+Check Palindrome
+</button>
+
+<div id="result"></div>
+<div class="stats" id="stats"></div>
+</div>
+
+<script>
+
+// Global Scope Variable
+let totalChecks = 0;
+
+// Closure Function
+function createCounter() {
+let count = 0; // Local Scope
+
+return function() {
+count++;
+return count;
+};
+}
+
+const counter = createCounter();
+
+// Arrow Function
+const reverseText = (text) =>
+text.split("").reverse().join("");
+
+// Normal Function
+function checkPalindrome() {
+try {
+
+let text =
+document.getElementById("textInput").value.trim();
+
+if(text === ""){
+throw new Error("Please enter some text.");
+}
+
+let cleanText =
+text.toLowerCase().replace(/\s/g,'');
+
+let reversed =
+reverseText(cleanText);
+
+totalChecks++;
+let currentCheck = counter();
+
+if(cleanText === reversed){
+
+document.getElementById("result").innerHTML =
+"✅ It's a Palindrome";
+
+document.getElementById("result").style.color =
+"#28a745";
+
+} else {
+
+document.getElementById("result").innerHTML =
+"❌ Not a Palindrome";
+
+document.getElementById("result").style.color =
+"#dc3545";
+}
+
+document.getElementById("stats").innerHTML =
+`Check Number: <b>${currentCheck}</b> |
+Total Checks: <b>${totalChecks}</b>`;
+
+}
+
+catch(error){
+
+document.getElementById("result").innerHTML =
+"⚠️ " + error.message;
+
+document.getElementById("result").style.color =
+"#ff9800";
+}
+}
+
+</script>
+
+</body>
+</html>
