@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Productivity Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Workspace Organizer</h1>
+            <div class="developer-info">Developer: Pranav Lakhe | PRN: 24070521248</div>
+            <button id="themeToggleBtn" onclick="toggleAppTheme()">Switch to Dark UI</button>
+        </header>
+
+        <main class="main-workspace">
+            <section class="input-panel">
+                <input type="text" id="taskInput" placeholder="Add a new goal or milestone..." autocomplete="off">
+                <button onclick="addNewTask()">Enlist Goal</button>
+            
+
+            <section class="filter-controls">
+                <button class="filter-btn active" onclick="applyTaskFilter('all', this)">All Tasks</button>
+                <button class="filter-btn" onclick="applyTaskFilter('pending', this)">Active</button>
+                <button class="filter-btn" onclick="applyTaskFilter('completed', this)">Completed</button>
+            
+
+            <ul id="taskListContainer" class="task-list"></ul>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
