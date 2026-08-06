@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Validation Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            margin: auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #003366;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background: #003366;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #002244;
+        }
+        #outputWindow {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef2f7;
+            border-left: 5px solid #003366;
+            display: none;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #003366;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Registration Profile</h2>
+    <form id="studentForm" onsubmit="return validateForm(event)">
+        <div class="form-group">
+            <label for="prn">PRN / Roll Number:</label>
+            <input type="text" id="prn" placeholder="e.g., 24070521248">
+        </div>
+        
+        <div class="form-group">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" placeholder="e.g., Pranav Lakhe">
+        </div>
+
+        <div class="form-group">
+            <label for="department">Select Department:</label>
+            <select id="department">
+                <option value="">-- Select --</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Data Science">Data Science</option>
+            </select>
+        </div>
+
+        <button type="submit">Submit & Validate Profile</button>
+    </form>
+
+    <div id="outputWindow">
+        <h3>Submission Profile Summary</h3>
+        <p><strong>PRN:</strong> <span id="outPrn"></span></p>
+        <p><strong>Name:</strong> <span id="outName"></span></p>
+        <p><strong>Department:</strong> <span id="outDept"></span></p>
+        <p><strong>Status:</strong> Verification Successful ✓</p>
+    </div>
+
+    <a href="College.html" class="back-link">&larr; Return to Institutional Home</a>
+</div>
+
+<script>
+    function validateForm(event) {
+        event.preventDefault();
+
+        var prn = document.getElementById("prn").value.trim();
+        var fullName = document.getElementById("fullName").value.trim();
+        var department = document.getElementById("department").value;
+
+        if (prn === "" || fullName === "" || department === "") {
+            alert("Error: All form fields are mandatory and cannot be blank.");
+            return false;
+        }
+
+        var prnPattern = /^[0-9]+$/;
+        if (!prnPattern.test(prn)) {
+            alert("Error: PRN must contain numerical values only.");
+            return false;
+        }
+
+        document.getElementById("outPrn").innerText = prn;
+        document.getElementById("outName").innerText = fullName;
+        document.getElementById("outDept").innerText = department;
+
+        document.getElementById("outputWindow").style.display = "block";
+        return true;
+    }
+</script>
+
+</body>
+</html>
