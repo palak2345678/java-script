@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Billing Calculator</title>
+</head>
+<body>
+
+<h2>Billing Calculator</h2>
+
+<p><strong>Name:</strong> Palak Hajare</p>
+<p><strong>PRN:</strong> 24070521237</p>
+
+<script>
+
+const GST = 0.18;
+
+var customerName = prompt("Enter Customer Name:");
+var productName = prompt("Enter Product Name:");
+
+var quantity = Number(prompt("Enter Quantity:"));
+let price = Number(prompt("Enter Price per Item:"));
+
+let total = quantity * price;
+let gstAmount = total * GST;
+let finalBill = total + gstAmount;
+
+const bill = {
+    customer: customerName,
+    product: productName,
+    quantity,
+    price,
+    total,
+    gstAmount,
+    finalBill
+};
+
+const {
+    customer,
+    product,
+    gstAmount: gst,
+    finalBill: amount
+} = bill;
+
+document.write("<hr>");
+document.write("<h3>Billing Receipt</h3>");
+document.write(`<p><strong>Customer:</strong> ${customer}</p>`);
+document.write(`<p><strong>Product:</strong> ${product}</p>`);
+document.write(`<p><strong>Quantity:</strong> ${quantity}</p>`);
+document.write(`<p><strong>Price per Item:</strong> ₹${price}</p>`);
+document.write(`<p><strong>Total:</strong> ₹${total}</p>`);
+document.write(`<p><strong>GST (18%):</strong> ₹${gst.toFixed(2)}</p>`);
+document.write(`<h3>Final Bill: ₹${amount.toFixed(2)}</h3>`);
+
+</script>
+
+</body>
+</html>
