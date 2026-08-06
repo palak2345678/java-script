@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Automated Billing Engine</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px;
+            background-color: #f7f9fc;
+        }
+        .billing-container {
+            max-width: 700px;
+            background: #ffffff;
+            margin: auto;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h2, h3 {
+            color: #1a365d;
+            text-align: center;
+            margin-top: 0;
+        }
+        .student-badge {
+            text-align: center;
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 25px;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3182ce;
+        }
+        button {
+            background: #2b6cb0;
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2c5282;
+        }
+        .invoice-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px dashed #4299e1;
+            border-radius: 6px;
+            display: none;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .invoice-table th, .invoice-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .invoice-table th {
+            background: #edf2f7;
+            color: #2d3748;
+        }
+        .text-right {
+            text-align: right !important;
+        }
+        .total-highlight {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="billing-container">
+    <h2>E-Commerce Billing System</h2>
+   
+    
+    <form id="billingForm" onsubmit="generateInvoice(event)">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="customerName">Customer Name:</label>
+                <input type="text" id="customerName" placeholder="Enter name" required>
+            </div>
+            <div class="form-group">
+                <label for="invoiceNo">Invoice Number:</label>
+                <input type="text" id="invoiceNo" placeholder="INV-2026-001" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group" style="flex: 2;">
+                <label for="itemName">Item Description:</label>
+                <input type="text" id="itemName" placeholder="Product name/model" required>
+            </div>
+            <div class="form-group">
+                <label for="itemCategory">Category:</label>
+                <select id="itemCategory">
+                    <option value="Electronics">Electronics (18% GST)</option>
+                    <option value="Clothing">Clothing (5% GST)</option>
+                    <option value="Essentials">Essentials (0% GST)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="unitPrice">Unit Price (₹):</label>
+                <input type="number" id="unitPrice" step="0.01" min="0" placeholder="0.00" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" min="1" placeholder="1" required>
+            </div>
+            <div class="form-group">
+                <label for="discountRate">Discount (%):</label>
+                <input type="number" id="discountRate" min="0" max="100" placeholder="0">
+            </div>
+        </div>
+
+        <button type="submit">Compute Calculations & Generate Receipt</button>
+    </form>
+
+    <div id="invoiceBox" class="invoice-box">
+        <h3>RETAIL INVOICE RECEIPT</h3>
+        <p><strong>Customer Reference:</strong> <span id="invCustomer"></span><br>
+           <strong>Invoice String ID:</strong> <span id="invId"></span></p>
+        
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Item Description</th>
+                    <th class="text-right">Rate</th>
+                    <th class="text-right">Qty</th>
+                    <th class="text-right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span id="invItem"></span> (<span id="invCat"></span>)</td>
+                    <td class="text-right">₹<span id="invPrice"></span></td>
+                    <td class="text-right"><span id="invQty"></span></td>
+                    <td class="text-right">₹<span id="invSub"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">Discount Applied:</td>
+                    <td class="text-right" style="color: #38a169;">-₹<span id="invDisc"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">Calculated Tax Component (GST):</td>
+                    <td class="text-right">₹<span id="invTax"></span></td>
+                </tr>
+                <tr style="background: #f7fafc;">
+                    <td colspan="3" class="text-right <strong>total-highlight</strong>">Grand Total Payable:</td>
+                    <td class="text-right total-highlight">₹<span id="invGrand"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function generateInvoice(event) {
+        event.preventDefault();
+
+        // 1. Data Capture Extractors
+        var customer = document.getElementById("customerName").value.trim();
+        var invoiceNum = document.getElementById("invoiceNo").value.trim();
+        var item = document.getElementById("itemName").value.trim();
+        var category = document.getElementById("itemCategory").value;
+        var price = parseFloat(document.getElementById("unitPrice").value);
+        var qty = parseInt(document.getElementById("quantity").value);
+        var discRate = parseFloat(document.getElementById("discountRate").value) || 0;
+
+        // 2. Arithmetic Matrix Calculations
+        var rawSubtotal = price * qty;
+        var discountAmount = (discRate / 100) * rawSubtotal;
+        var discountedSubtotal = rawSubtotal - discountAmount;
+
+        // Tax Percentage Matrix Assignment
+        var taxPercentage = 0;
+        if (category === "Electronics") taxPercentage = 18;
+        else if (category === "Clothing") taxPercentage = 5;
+        else if (category === "Essentials") taxPercentage = 0;
+
+        var taxAmount = (taxPercentage / 100) * discountedSubtotal;
+        var grandTotal = discountedSubtotal + taxAmount;
+
+        // 3. UI Node Rendering Updates
+        document.getElementById("invCustomer").innerText = customer;
+        document.getElementById("invId").innerText = invoiceNum;
+        document.getElementById("invItem").innerText = item;
+        document.getElementById("invCat").innerText = category;
+        document.getElementById("invPrice").innerText = price.toFixed(2);
+        document.getElementById("invQty").innerText = qty;
+        document.getElementById("invSub").innerText = rawSubtotal.toFixed(2);
+        document.getElementById("invDisc").innerText = discountAmount.toFixed(2);
+        document.getElementById("invTax").innerText = taxAmount.toFixed(2);
+        document.getElementById("invGrand").innerText = grandTotal.toFixed(2);
+
+        // Slide/Toggle element block presence configurations
+        document.getElementById("invoiceBox").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
