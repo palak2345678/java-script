@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Scholarship Eligibility Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px;
+            background-color: #f0f4f8;
+        }
+        .scholarship-container {
+            max-width: 650px;
+            background: #ffffff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h2, h3 {
+            color: #1a365d;
+            text-align: center;
+            margin-top: 0;
+        }
+        .developer-badge {
+            text-align: center;
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4c51bf;
+            box-shadow: 0 0 0 3px rgba(76,81,191,0.1);
+        }
+        button {
+            background: #4c51bf;
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #434190;
+        }
+        .result-panel {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 6px;
+            display: none;
+        }
+        .approved {
+            background-color: #f0fff4;
+            border: 1px solid #38a169;
+            color: #276749;
+        }
+        .rejected {
+            background-color: #fff5f5;
+            border: 1px solid #e53e3e;
+            color: #9b2c2c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="scholarship-container">
+    <h2>Scholarship Eligibility Portal</h2>
+    <div class="developer-badge">Developer: Pranav Lakhe | PRN: 24070521248</div>
+
+    <form id="eligibilityForm" onsubmit="evaluateEligibility(event)">
+        <div class="form-group">
+            <label for="studentName">Student Full Name:</label>
+            <input type="text" id="studentName" placeholder="Enter complete name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="academicScore">Academic Score (Percentage / Aggregate):</label>
+            <input type="number" id="academicScore" min="0" max="100" step="0.1" placeholder="e.g., 85.5" required>
+        </div>
+
+        <div class="form-group">
+            <label for="familyIncome">Annual Family Income (₹):</label>
+            <input type="number" id="familyIncome" min="0" placeholder="e.g., 450000" required>
+        </div>
+
+        <div class="form-group">
+            <label for="scholarshipType">Select Scholarship Scheme:</label>
+            <select id="scholarshipType">
+                <option value="merit">Merit-Based Scheme (Min Marks: 85%, Max Income: ₹8,00,000)</option>
+                <option value="need">EBC Financial Assistance (Min Marks: 60%, Max Income: ₹3,00,000)</option>
+                <option value="special">Special Talent Grant (Min Marks: 75%, Max Income: ₹6,00,000)</option>
+            </select>
+        </div>
+
+        <button type="submit">Execute Logic & Check Eligibility</button>
+    </form>
+
+    <div id="resultPanel" class="result-panel">
+        <h3 id="resultTitle">Evaluation Status</h3>
+        <p><strong>Candidate Name:</strong> <span id="resName"></span></p>
+        <p><strong>Scheme Checked:</strong> <span id="resScheme"></span></p>
+        <p id="resDetails"></p>
+    </div>
+</div>
+
+<script>
+    function evaluateEligibility(event) {
+        event.preventDefault();
+
+        // 1. Parameter Extraction
+        var name = document.getElementById("studentName").value.trim();
+        var score = parseFloat(document.getElementById("academicScore").value);
+        var income = parseFloat(document.getElementById("familyIncome").value);
+        var scheme = document.getElementById("scholarshipType").value;
+
+        var isEligible = false;
+        var schemeName = "";
+        var feedbackMessage = "";
+
+        // 2. Multi-Tiered Conditional Matrix Analysis
+        if (scheme === "merit") {
+            schemeName = "Merit-Based Scholarship Scheme";
+            if (score >= 85 && income <= 800000) {
+                isEligible = true;
+                feedbackMessage = "Congratulations! Profile cleared the structural academic and economic baseline thresholds.";
+            } else {
+                feedbackMessage = "Status Denied: Requires a minimum score of 85% and family income within ₹8,00,000.";
+            }
+        } else if (scheme === "need") {
+            schemeName = "EBC Financial Assistance Scheme";
+            if (score >= 60 && income <= 300000) {
+                isEligible = true;
+                feedbackMessage = "Congratulations! Profile qualified under the high-priority financial necessity category.";
+            } else {
+                feedbackMessage = "Status Denied: Requires a minimum score of 60% and family income restricted to ₹3,00,000.";
+            }
+        } else if (scheme === "special") {
+            schemeName = "Special Talent Advancement Grant";
+            if (score >= 75 && income <= 600000) {
+                isEligible = true;
+                feedbackMessage = "Congratulations! Candidate confirmed eligible for the specialized department allowance.";
+            } else {
+                feedbackMessage = "Status Denied: Requires a minimum score of 75% and family income within ₹6,00,000.";
+            }
+        }
+
+        // 3. UI Node State Modification
+        document.getElementById("resName").innerText = name;
+        document.getElementById("resScheme").innerText = schemeName;
+        document.getElementById("resDetails").innerText = feedbackMessage;
+
+        var panel = document.getElementById("resultPanel");
+        panel.style.display = "block";
+
+        // Dynamic status block formatting rules
+        if (isEligible) {
+            panel.className = "result-panel approved";
+            document.getElementById("resultTitle").innerText = "ELIGIBILITY VERIFIED ✓";
+        } else {
+            panel.className = "result-panel rejected";
+            document.getElementById("resultTitle").innerText = "ELIGIBILITY REJECTED ✗";
+        }
+    }
+</script>
+
+</body>
+</html>
