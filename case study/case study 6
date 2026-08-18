@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript String Operations</title>
+
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg, #667eea, #764ba2);
+min-height: 100vh;
+padding: 30px;
+color: #333;
+}
+
+.container {
+max-width: 950px;
+margin: auto;
+background: white;
+border-radius: 20px;
+padding: 35px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.header {
+text-align: center;
+margin-bottom: 30px;
+}
+
+.header h1 {
+color: #5a4fcf;
+font-size: 32px;
+margin-bottom: 10px;
+}
+
+.header p {
+color: #666;
+font-size: 16px;
+}
+
+.developer {
+background: linear-gradient(135deg, #667eea, #764ba2);
+color: white;
+padding: 15px;
+border-radius: 12px;
+text-align: center;
+margin-bottom: 25px;
+font-size: 17px;
+}
+
+.section {
+background: #f8f9ff;
+padding: 25px;
+border-radius: 15px;
+margin-bottom: 25px;
+border-left: 5px solid #667eea;
+}
+
+.section h2 {
+color: #5a4fcf;
+margin-bottom: 18px;
+}
+
+label {
+font-weight: bold;
+display: block;
+margin-bottom: 8px;
+}
+
+input, textarea {
+width: 100%;
+padding: 12px;
+border: 2px solid #ddd;
+border-radius: 8px;
+font-size: 15px;
+margin-bottom: 12px;
+outline: none;
+}
+
+input:focus, textarea:focus {
+border-color: #667eea;
+}
+
+textarea {
+height: 100px;
+resize: vertical;
+}
+
+button {
+background: linear-gradient(135deg, #667eea, #764ba2);
+color: white;
+border: none;
+padding: 11px 18px;
+margin: 5px;
+border-radius: 8px;
+cursor: pointer;
+font-size: 14px;
+font-weight: bold;
+transition: 0.3s;
+}
+
+button:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+}
+
+.result {
+margin-top: 15px;
+background: white;
+border-radius: 10px;
+padding: 15px;
+border: 1px solid #ddd;
+line-height: 1.8;
+}
+
+.result span {
+color: #5a4fcf;
+font-weight: bold;
+}
+
+.footer {
+text-align: center;
+margin-top: 25px;
+color: #777;
+font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>String Operations using JavaScript</h1>
+<p>Explore basic and advanced string manipulation techniques</p>
+</div>
+
+<div class="developer">
+<strong>Developer:</strong> Palak Hajare
+&nbsp; | &nbsp;
+<strong>PRN:</strong> 24070521237
+</div>
+
+<!-- BASIC STRING OPERATIONS -->
+<div class="section">
+<h2>🔤 A) Basic String Operations</h2>
+
+<label>Enter a String:</label>
+<input type="text" id="basicString"
+placeholder="Enter your string here">
+
+<button onclick="showBasic()">Show Basic Operations</button>
+
+<div class="result" id="basicResult">
+Results will appear here...
+</div>
+</div>
+
+<!-- STRING METHODS -->
+<div class="section">
+<h2>⚙️ B) Work with Strings</h2>
+
+<label>Enter a String:</label>
+<input type="text" id="workString"
+placeholder="Example: JavaScript is powerful">
+
+<label>Enter word to search:</label>
+<input type="text" id="searchWord"
+placeholder="Enter a word">
+
+<label>Enter replacement word:</label>
+<input type="text" id="replaceWord"
+placeholder="Enter replacement">
+
+<button onclick="stringOperations()">Perform Operations</button>
+
+<div class="result" id="workResult">
+Results will appear here...
+</div>
+</div>
+
+<!-- REVERSE STRING -->
+<div class="section">
+<h2>🔄 Case Study 1: Reverse a String</h2>
+
+<label>Enter a String:</label>
+<input type="text" id="reverseInput"
+placeholder="Enter string to reverse">
+
+<button onclick="reverseString()">Reverse String</button>
+
+<div class="result" id="reverseResult">
+Result will appear here...
+</div>
+</div>
+
+<!-- VOWEL COUNT -->
+<div class="section">
+<h2>🔡 Case Study 2: Count Vowels in a Paragraph</h2>
+
+<label>Enter a Paragraph:</label>
+<textarea id="paragraph"
+placeholder="Enter your paragraph here..."></textarea>
+
+<button onclick="countVowels()">Count Vowels</button>
+
+<div class="result" id="vowelResult">
+Result will appear here...
+</div>
+</div>
+
+<div class="footer">
+JavaScript Practical | String Operations
+<br>
+© 2026 Palak Hajare
+</div>
+
+</div>
+
+
+<script>
+
+// A) BASIC STRING OPERATIONS
+function showBasic() {
+
+let str = document.getElementById("basicString").value;
+
+if (str === "") {
+alert("Please enter a string!");
+return;
+}
+
+document.getElementById("basicResult").innerHTML =
+"<span>Original String:</span> " + str + "<br>" +
+"<span>Length:</span> " + str.length + "<br>" +
+"<span>Uppercase:</span> " + str.toUpperCase() + "<br>" +
+"<span>Lowercase:</span> " + str.toLowerCase() + "<br>" +
+"<span>First Character:</span> " + str.charAt(0) + "<br>" +
+"<span>Last Character:</span> " + str.charAt(str.length - 1);
+}
+
+
+// B) STRING METHODS
+function stringOperations() {
+
+let str = document.getElementById("workString").value;
+let search = document.getElementById("searchWord").value;
+let replace = document.getElementById("replaceWord").value;
+
+if (str === "") {
+alert("Please enter a string!");
+return;
+}
+
+// substring()
+let sub = str.substring(0, 10);
+
+// indexOf()
+let index = str.indexOf(search);
+
+// split()
+let splitString = str.split(" ");
+
+// replace()
+let replaced = str.replace(search, replace);
+
+document.getElementById("workResult").innerHTML =
+"<span>Original String:</span> " + str + "<br>" +
+"<span>substring(0,10):</span> " + sub + "<br>" +
+"<span>indexOf():</span> " + index + "<br>" +
+"<span>split():</span> " + splitString.join(" | ") + "<br>" +
+"<span>replace():</span> " + replaced;
+}
+
+
+// CASE STUDY 1: REVERSE STRING
+function reverseString() {
+
+let str = document.getElementById("reverseInput").value;
+
+if (str === "") {
+alert("Please enter a string!");
+return;
+}
+
+let reversed = str.split("").reverse().join("");
+
+document.getElementById("reverseResult").innerHTML =
+"<span>Original String:</span> " + str + "<br>" +
+"<span>Reversed String:</span> " + reversed;
+}
+
+
+// CASE STUDY 2: COUNT VOWELS
+function countVowels() {
+
+let paragraph = document.getElementById("paragraph").value;
+
+if (paragraph === "") {
+alert("Please enter a paragraph!");
+return;
+}
+
+let vowels = paragraph.match(/[aeiouAEIOU]/g);
+
+let count = vowels ? vowels.length : 0;
+
+document.getElementById("vowelResult").innerHTML =
+"<span>Total Number of Vowels:</span> " + count;
+}
+
+</script>
+
+</body>
+</html>
