@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>String Functions and Regex</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #3730a3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            line-height: 1.8;
+        }
+
+        .valid {
+            color: green;
+            font-weight: bold;
+        }
+
+        .invalid {
+            color: red;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Email & Text Analyzer</h1>
+
+    <label><b>Enter Email:</b></label>
+    <input type="text" id="email" placeholder="example@gmail.com">
+
+    <label><b>Enter Text:</b></label>
+    <textarea id="text" rows="7"
+        placeholder="Enter text containing emails, phone numbers, hashtags..."></textarea>
+
+    <button onclick="analyzeText()">Analyze</button>
+
+    <div class="result" id="result">
+        Results will appear here.
+    </div>
+
+</div>
+
+<footer>
+    Developer: Palak Hajare | PRN: 24070521237
+</footer>
+
+<script>
+function analyzeText() {
+    // Get input values
+    let email = document.getElementById("email").value.trim();
+    let text = document.getElementById("text").value;
+
+    // ---------------- EMAIL VALIDATION ----------------
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let emailResult;
+
+    if (emailRegex.test(email)) {
+        emailResult = "<span class='valid'>Valid Email ✓</span>";
+    } else {
+        emailResult = "<span class='invalid'>Invalid Email ✗</span>";
+    }
+
+    // ---------------- DATA EXTRACTION ----------------
+    let emails = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || [];
+    let phones = text.match(/\b\d{10}\b/g) || [];
+    let hashtags = text.match(/#[a-zA-Z0-9_]+/g) || [];
+
+    // ---------------- TEXT ANALYSIS ----------------
+    let cleanText = text.trim();
+    let characters = cleanText.length;
+    let words = cleanText === "" ? 0 : cleanText.split(/\s+/).length;
+    let vowels = cleanText.match(/[aeiou]/gi) || [];
+    let vowelCount = vowels.length;
+    let sentences = cleanText.match(/[.!?]+/g) || [];
+    let sentenceCount = sentences.length;
+
+    // ---------------- DISPLAY RESULT ----------------
+    document.getElementById("result").innerHTML = `
+        <h3>Email Validation</h3>
+        ${emailResult}
+        <h3>Extracted Data</h3>
+        <b>Emails:</b> ${emails.length ? emails.join(", ") : "None"}<br>
+        <b>Phone Numbers:</b> ${phones.length ? phones.join(", ") : "None"}<br>
+        <b>Hashtags:</b> ${hashtags.length ? hashtags.join(", ") : "None"}<br>
+        <h3>Text Analysis</h3>
+        <b>Characters:</b> ${characters}<br>
+        <b>Words:</b> ${words}<br>
+        <b>Vowels:</b> ${vowelCount}<br>
+        <b>Sentences:</b> ${sentenceCount}
+    `;
+}
+</script>
+
+</body>
+</html>
