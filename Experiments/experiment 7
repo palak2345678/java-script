@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Revolution Fitness - Admission Form</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #f8fafc,
+                #fce7f3
+            );
+            color: #334155;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 96%;
+            height: 94vh;
+            margin: 3vh auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(71, 85, 105, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 105px;
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 18px 35px;
+
+            background: linear-gradient(
+                120deg,
+                #dbeafe,
+                #ede9fe,
+                #fce7f3
+            );
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: white;
+            border-radius: 50%;
+
+            font-size: 32px;
+
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.12);
+        }
+
+        .header h1 {
+            font-size: 30px;
+            letter-spacing: 2px;
+            color: #4f46e5;
+        }
+
+        .header p {
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .developer-top {
+            text-align: right;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .developer-top strong {
+            color: #4f46e5;
+        }
+
+        /* CONTENT */
+
+        .content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 0;
+        }
+
+        .left,
+        .right {
+            padding: 18px 28px;
+            min-height: 0;
+        }
+
+        .left {
+            border-right: 1px solid #e2e8f0;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            font-size: 16px;
+            color: #4f46e5;
+
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+
+            border-bottom: 2px solid #e0e7ff;
+        }
+
+        /* FORM GRID */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 15px;
+        }
+
+        .field {
+            margin-bottom: 7px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #475569;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 8px 10px;
+
+            border: 1.5px solid #dbe2ea;
+
+            border-radius: 7px;
+
+            background: #f8fafc;
+
+            color: #334155;
+
+            outline: none;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #818cf8;
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(129, 140, 248, 0.10);
+        }
+
+        input.valid,
+        select.valid {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        input.invalid,
+        select.invalid {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .error {
+            min-height: 13px;
+            margin-top: 2px;
+
+            color: #ef4444;
+
+            font-size: 10px;
+        }
+
+        /* GENDER */
+
+        .gender {
+            display: flex;
+            gap: 20px;
+            margin-top: 4px;
+        }
+
+        .gender label {
+            font-weight: 500;
+        }
+
+        .gender input {
+            width: auto;
+            margin-right: 4px;
+        }
+
+        /* PASSWORD */
+
+        .strength {
+            height: 4px;
+            margin-top: 4px;
+
+            background: #e2e8f0;
+
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            width: 0%;
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        /* BMI */
+
+        .bmi-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 10px 15px;
+
+            margin: 10px 0;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #fdf2f8
+            );
+
+            border: 1px solid #e0e7ff;
+        }
+
+        .bmi-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .bmi-status {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* MEMBERSHIP */
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .plan {
+            padding: 10px 5px;
+
+            text-align: center;
+
+            border: 1.5px solid #e2e8f0;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            background: white;
+        }
+
+        .plan:hover {
+            border-color: #a5b4fc;
+            transform: translateY(-2px);
+        }
+
+        .plan.selected {
+            background: #eef2ff;
+            border-color: #6366f1;
+        }
+
+        .plan input {
+            display: none;
+        }
+
+        .plan h3 {
+            font-size: 13px;
+            color: #4f46e5;
+            margin-bottom: 3px;
+        }
+
+        .plan p {
+            font-size: 9px;
+            color: #64748b;
+            line-height: 13px;
+        }
+
+        .price {
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 5px;
+            color: #334155;
+        }
+
+        /* PHOTO */
+
+        .photo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .photo-input {
+            flex: 1;
+        }
+
+        .preview {
+            display: none;
+
+            width: 65px;
+            height: 65px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 3px solid #c7d2fe;
+        }
+
+        /* TERMS */
+
+        .terms {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin: 10px 0;
+        }
+
+        .terms input {
+            width: auto;
+        }
+
+        .terms label {
+            margin: 0;
+            font-size: 11px;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            flex: 1;
+
+            border: none;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .submit-btn {
+            background: linear-gradient(
+                135deg,
+                #6366f1,
+                #8b5cf6
+            );
+
+            color: white;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 5px 15px
+                rgba(99, 102, 241, 0.25);
+        }
+
+        .reset-btn {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        /* RESULT */
+
+        #result {
+            display: none;
+
+            margin-top: 8px;
+
+            padding: 9px;
+
+            border-radius: 8px;
+
+            background: #f0fdf4;
+
+            border: 1px solid #86efac;
+
+            color: #166534;
+
+            font-size: 11px;
+        }
+
+        #result h3 {
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            height: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f8fafc;
+
+            border-top: 1px solid #e2e8f0;
+
+            font-size: 11px;
+
+            color: #64748b;
+        }
+
+        .footer strong {
+            color: #4f46e5;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                🏋️
+            </div>
+
+            <div>
+
+                <h1>REVOLUTION FITNESS</h1>
+
+                <p>
+                    Transform Your Body • Transform Your Life
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="developer-top">
+
+            <div>Gym Admission Portal</div>
+
+            <div>
+                Developer:
+                <strong>Palak Hajare</strong>
+            </div>
+
+            <div>
+                PRN:
+                <strong>24070521237</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TWO COLUMN CONTENT -->
+
+    <div class="content">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="left">
+
+            <h2 class="section-title">
+                👤 Personal Information
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Full Name *</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter full name">
+
+                    <div
+                        class="error"
+                        id="nameError">
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Email *</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="example@gmail.com">
+
+                    <div
+                        class="error"
+                        id="emailError">
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Mobile Number *</label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        maxlength="10"
+                        placeholder="10 digit number">
+
+                    <div
+                        class="error"
+                        id="phoneError">
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Date of Birth *</label>
+
+                    <input
+                        type="date"
+                        id="dob">
+
+                    <div
+                        class="error"
+                        id="dobError">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="field">
+
+                <label>Gender *</label>
+
+                <div class="gender">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Male">
+                        Male
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Female">
+                        Female
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Other">
+                        Other
+                    </label>
+
+                </div>
+
+                <div
+                    class="error"
+                    id="genderError">
+                </div>
+
+            </div>
+
+
+            <!-- ACCOUNT -->
+
+            <h2 class="section-title">
+                🔐 Account Details
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Password *</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create password">
+
+                    <div class="strength">
+                        <div
+                            class="strength-bar"
+                            id="strengthBar">
+                        </div>
+                    </div>
+
+                    <div
+                        class="error"
+                        id="passwordError">
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Confirm Password *</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Re-enter password">
+
+                    <div
+                        class="error"
+                        id="confirmError">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FITNESS -->
+
+            <h2 class="section-title">
+                💪 Fitness Details
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Height (cm) *</label>
+
+                    <input
+                        type="number"
+                        id="height"
+                        min="50"
+                        max="250"
+                        placeholder="170">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Weight (kg) *</label>
+
+                    <input
+                        type="number"
+                        id="weight"
+                        min="20"
+                        max="300"
+                        placeholder="65">
+
+                </div>
+
+            </div>
+
+
+            <!-- BMI -->
+
+            <div class="bmi-box">
+
+                <div>
+
+                    <b>BMI Calculator</b>
+
+                    <div class="bmi-status"
+                         id="bmiStatus">
+
+                        Enter height & weight
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="bmi-value"
+                    id="bmi">
+
+                    --
+
+                </div>
+
+            </div>
+
+
+            <!-- MEMBERSHIP -->
+
+            <h2 class="section-title">
+                💳 Membership Plan
+            </h2>
+
+
+            <div class="plans">
+
+
+                <label class="plan">
+
+                    <input
+                        type="radio"
+                        name="membership"
+                        value="Basic - ₹999/month">
+
+                    <h3>Basic</h3>
+
+                    <p>Gym Access</p>
+                    <p>Locker</p>
+
+                    <div class="price">
+                        ₹999
+                    </div>
+
+                </label>
+
+
+                <label class="plan">
+
+                    <input
+                        type="radio"
+                        name="membership"
+                        value="Premium - ₹1499/month">
+
+                    <h3>Premium</h3>
+
+                    <p>Trainer</p>
+                    <p>Steam & Sauna</p>
+
+                    <div class="price">
+                        ₹1499
+                    </div>
+
+                </label>
+
+
+                <label class="plan">
+
+                    <input
+                        type="radio"
+                        name="membership"
+                        value="Elite - ₹2499/month">
+
+                    <h3>Elite</h3>
+
+                    <p>Diet Plan</p>
+                    <p>Personal Training</p>
+
+                    <div class="price">
+                        ₹2499
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <div
+                class="error"
+                id="membershipError">
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="right">
+
+
+            <h2 class="section-title">
+                📋 Additional Information
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Fitness Goal</label>
+
+                    <select id="goal">
+
+                        <option value="">
+                            Select goal
+                        </option>
+
+                        <option>
+                            Weight Loss
+                        </option>
+
+                        <option>
+                            Muscle Gain
+                        </option>
+
+                        <option>
+                            General Fitness
+                        </option>
+
+                        <option>
+                            Body Building
+                        </option>
+
+                        <option>
+                            Improve Stamina
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Workout Time</label>
+
+                    <select id="time">
+
+                        <option value="">
+                            Select time
+                        </option>
+
+                        <option>
+                            Morning 6-9 AM
+                        </option>
+
+                        <option>
+                            Afternoon 12-3 PM
+                        </option>
+
+                        <option>
+                            Evening 5-8 PM
+                        </option>
+
+                        <option>
+                            Night 8-10 PM
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="field">
+
+                <label>Residential Address</label>
+
+                <textarea
+                    id="address"
+                    rows="3"
+                    placeholder="Enter complete address">
+                </textarea>
+
+            </div>
+
+
+            <!-- PHOTO -->
+
+            <div class="field">
+
+                <label>Profile Photo</label>
+
+                <div class="photo-area">
+
+                    <div class="photo-input">
+
+                        <input
+                            type="file"
+                            id="photo"
+                            accept="image/*">
+
+                    </div>
+
+                    <img
+                        id="preview"
+                        class="preview"
+                        alt="Profile">
+
+                </div>
+
+            </div>
+
+
+            <!-- HEALTH -->
+
+            <h2 class="section-title">
+                🏃 Fitness Preferences
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Experience Level</label>
+
+                    <select id="experience">
+
+                        <option>
+                            Beginner
+                        </option>
+
+                        <option>
+                            Intermediate
+                        </option>
+
+                        <option>
+                            Advanced
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Workout Frequency</label>
+
+                    <select id="frequency">
+
+                        <option>
+                            2-3 Days/Week
+                        </option>
+
+                        <option>
+                            4-5 Days/Week
+                        </option>
+
+                        <option>
+                            6 Days/Week
+                        </option>
+
+                        <option>
+                            Daily
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- EMERGENCY -->
+
+            <h2 class="section-title">
+                🚨 Emergency Contact
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Contact Name</label>
+
+                    <input
+                        type="text"
+                        id="emergencyName"
+                        placeholder="Emergency contact">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Contact Number</label>
+
+                    <input
+                        type="tel"
+                        id="emergencyPhone"
+                        maxlength="10"
+                        placeholder="10 digit number">
+
+                </div>
+
+            </div>
+
+
+            <!-- TERMS -->
+
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms">
+
+                <label for="terms">
+
+                    I agree to the gym rules and
+                    terms & conditions.
+
+                </label>
+
+            </div>
+
+
+            <div
+                class="error"
+                id="termsError">
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    form="gymForm">
+
+                    ✓ Submit Admission
+
+                </button>
+
+
+                <button
+                    type="reset"
+                    class="reset-btn"
+                    form="gymForm">
+
+                    ↻ Reset
+
+                </button>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div id="result">
+
+                <h3>
+                    🎉 Admission Successful!
+                </h3>
+
+                <p id="resultText"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        Revolution Fitness © 2026 |
+        Developed by
+        <strong>&nbsp;Palak Hajare</strong>
+        &nbsp; | PRN:
+        <strong>&nbsp;24070521237</strong>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+    // =========================================
+    // FORM ACCESS
+    // =========================================
+
+    const form = document.getElementById("gymForm");
+
+    const name =
+        document.getElementById("name");
+
+    const email =
+        document.getElementById("email");
+
+    const phone =
+        document.getElementById("phone");
+
+    const dob =
+        document.getElementById("dob");
+
+    const password =
+        document.getElementById("password");
+
+    const confirmPassword =
+        document.getElementById("confirmPassword");
+
+    const height =
+        document.getElementById("height");
+
+    const weight =
+        document.getElementById("weight");
+
+    const bmi =
+        document.getElementById("bmi");
+
+    const bmiStatus =
+        document.getElementById("bmiStatus");
+
+    const strengthBar =
+        document.getElementById("strengthBar");
+
+    const photo =
+        document.getElementById("photo");
+
+    const preview =
+        document.getElementById("preview");
+
+
+    // =========================================
+    // NAME INPUT EVENT
+    // =========================================
+
+    name.addEventListener("input", function () {
+
+        if (name.value.trim().length < 3) {
+
+            name.classList.add("invalid");
+            name.classList.remove("valid");
+
+            document.getElementById("nameError")
+                .textContent =
+                "Enter at least 3 characters.";
+
+        } else {
+
+            name.classList.add("valid");
+            name.classList.remove("invalid");
+
+            document.getElementById("nameError")
+                .textContent =
+                "✓ Valid name";
+
+        }
+
+    });
+
+
+    // =========================================
+    // EMAIL INPUT EVENT
+    // =========================================
+
+    email.addEventListener("input", function () {
+
+        const pattern =
+            /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+        if (!pattern.test(email.value)) {
+
+            email.classList.add("invalid");
+            email.classList.remove("valid");
+
+            document.getElementById("emailError")
+                .textContent =
+                "Enter a valid email.";
+
+        } else {
+
+            email.classList.add("valid");
+            email.classList.remove("invalid");
+
+            document.getElementById("emailError")
+                .textContent =
+                "✓ Valid email";
+
+        }
+
+    });
+
+
+    // =========================================
+    // PHONE INPUT EVENT
+    // =========================================
+
+    phone.addEventListener("input", function () {
+
+        phone.value =
+            phone.value.replace(/\D/g, "");
+
+        if (phone.value.length !== 10) {
+
+            phone.classList.add("invalid");
+            phone.classList.remove("valid");
+
+            document.getElementById("phoneError")
+                .textContent =
+                "Enter 10 digit number.";
+
+        } else {
+
+            phone.classList.add("valid");
+            phone.classList.remove("invalid");
+
+            document.getElementById("phoneError")
+                .textContent =
+                "✓ Valid number";
+
+        }
+
+    });
+
+
+    // =========================================
+    // PASSWORD INPUT EVENT
+    // =========================================
+
+    password.addEventListener("input", function () {
+
+        const value =
+            password.value;
+
+        let strength = 0;
+
+        if (value.length >= 6)
+            strength++;
+
+        if (/[A-Z]/.test(value))
+            strength++;
+
+        if (/[0-9]/.test(value))
+            strength++;
+
+        if (/[^A-Za-z0-9]/.test(value))
+            strength++;
+
+
+        strengthBar.style.width =
+            (strength * 25) + "%";
+
+
+        if (strength <= 1) {
+
+            strengthBar.style.background =
+                "#ef4444";
+
+            document.getElementById(
+                "passwordError"
+            ).textContent =
+                "Weak password";
+
+        }
+
+        else if (strength <= 3) {
+
+            strengthBar.style.background =
+                "#f59e0b";
+
+            document.getElementById(
+                "passwordError"
+            ).textContent =
+                "Medium password";
+
+        }
+
+        else {
+
+            strengthBar.style.background =
+                "#22c55e";
+
+            document.getElementById(
+                "passwordError"
+            ).textContent =
+                "✓ Strong password";
+
+        }
+
+    });
+
+
+    // =========================================
+    // CONFIRM PASSWORD INPUT EVENT
+    // =========================================
+
+    confirmPassword.addEventListener(
+        "input",
+        function () {
+
+            if (
+                confirmPassword.value !==
+                password.value
+            ) {
+
+                confirmPassword.classList.add(
+                    "invalid"
+                );
+
+                document.getElementById(
+                    "confirmError"
+                ).textContent =
+                    "Passwords don't match.";
+
+            }
+
+            else {
+
+                confirmPassword.classList.add(
+                    "valid"
+                );
+
+                confirmPassword.classList.remove(
+                    "invalid"
+                );
+
+                document.getElementById(
+                    "confirmError"
+                ).textContent =
+                    "✓ Passwords match";
+
+            }
+
+        }
+    );
+
+
+    // =========================================
+    // BMI CALCULATOR
+    // =========================================
+
+    function calculateBMI() {
+
+        const h =
+            parseFloat(height.value);
+
+        const w =
+            parseFloat(weight.value);
+
+
+        if (h > 0 && w > 0) {
+
+            const value =
+                w / ((h / 100) ** 2);
+
+            bmi.textContent =
+                value.toFixed(1);
+
+
+            if (value < 18.5) {
+
+                bmiStatus.textContent =
+                    "Underweight";
+
+            }
+
+            else if (value < 25) {
+
+                bmiStatus.textContent =
+                    "Normal Weight";
+
+            }
+
+            else if (value < 30) {
+
+                bmiStatus.textContent =
+                    "Overweight";
+
+            }
+
+            else {
+
+                bmiStatus.textContent =
+                    "Obese";
+
+            }
+
+        }
+
+        else {
+
+            bmi.textContent = "--";
+
+            bmiStatus.textContent =
+                "Enter height & weight";
+
+        }
+
+    }
+
+
+    height.addEventListener(
+        "input",
+        calculateBMI
+    );
+
+    weight.addEventListener(
+        "input",
+        calculateBMI
+    );
+
+
+    // =========================================
+    // MEMBERSHIP CLICK EVENT
+    // =========================================
+
+    const plans =
+        document.querySelectorAll(".plan");
+
+
+    plans.forEach(function (plan) {
+
+        plan.addEventListener(
+            "click",
+            function () {
+
+                plans.forEach(function (p) {
+
+                    p.classList.remove(
+                        "selected"
+                    );
+
+                });
+
+                plan.classList.add(
+                    "selected"
+                );
+
+            }
+        );
+
+    });
+
+
+    // =========================================
+    // PHOTO CHANGE EVENT
+    // =========================================
+
+    photo.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                photo.files[0];
+
+            if (file) {
+
+                preview.src =
+                    URL.createObjectURL(file);
+
+                preview.style.display =
+                    "block";
+
+            }
+
+        }
+    );
+
+
+    // =========================================
+    // DOB CHANGE EVENT
+    // =========================================
+
+    dob.addEventListener(
+        "change",
+        function () {
+
+            const birthDate =
+                new Date(dob.value);
+
+            const today =
+                new Date();
+
+            let age =
+                today.getFullYear() -
+                birthDate.getFullYear();
+
+
+            const month =
+                today.getMonth() -
+                birthDate.getMonth();
+
+
+            if (
+                month < 0 ||
+                (
+                    month === 0 &&
+                    today.getDate() <
+                    birthDate.getDate()
+                )
+            ) {
+
+                age--;
+
+            }
+
+
+            if (age < 16) {
+
+                dob.classList.add(
+                    "invalid"
+                );
+
+                document.getElementById(
+                    "dobError"
+                ).textContent =
+                    "Minimum age is 16.";
+
+            }
+
+            else {
+
+                dob.classList.add(
+                    "valid"
+                );
+
+                dob.classList.remove(
+                    "invalid"
+                );
+
+                document.getElementById(
+                    "dobError"
+                ).textContent =
+                    "✓ Age verified";
+
+            }
+
+        }
+    );
+
+
+    // =========================================
+    // FORM SUBMIT EVENT
+    // =========================================
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            // NAME
+
+            if (
+                name.value.trim().length < 3
+            ) {
+
+                alert(
+                    "Please enter your name."
+                );
+
+                name.focus();
+
+                return;
+
+            }
+
+
+            // EMAIL
+
+            const emailPattern =
+                /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+
+            if (
+                !emailPattern.test(
+                    email.value
+                )
+            ) {
+
+                alert(
+                    "Please enter a valid email."
+                );
+
+                email.focus();
+
+                return;
+
+            }
+
+
+            // PHONE
+
+            if (
+                phone.value.length !== 10
+            ) {
+
+                alert(
+                    "Enter a valid 10 digit number."
+                );
+
+                phone.focus();
+
+                return;
+
+            }
+
+
+            // PASSWORD
+
+            if (
+                password.value.length < 6
+            ) {
+
+                alert(
+                    "Password must have at least 6 characters."
+                );
+
+                password.focus();
+
+                return;
+
+            }
+
+
+            // CONFIRM PASSWORD
+
+            if (
+                password.value !==
+                confirmPassword.value
+            ) {
+
+                alert(
+                    "Passwords do not match."
+                );
+
+                confirmPassword.focus();
+
+                return;
+
+            }
+
+
+            // GENDER
+
+            const gender =
+                document.querySelector(
+                    'input[name="gender"]:checked'
+                );
+
+
+            if (!gender) {
+
+                alert(
+                    "Please select gender."
+                );
+
+                return;
+
+            }
+
+
+            // MEMBERSHIP
+
+            const membership =
+                document.querySelector(
+                    'input[name="membership"]:checked'
+                );
+
+
+            if (!membership) {
+
+                alert(
+                    "Please select membership."
+                );
+
+                return;
+
+            }
+
+
+            // TERMS
+
+            if (
+                !document.getElementById(
+                    "terms"
+                ).checked
+            ) {
+
+                document.getElementById(
+                    "termsError"
+                ).textContent =
+                    "Please accept the terms.";
+
+                return;
+
+            }
+
+
+            // SUCCESS
+
+            const result =
+                document.getElementById(
+                    "result"
+                );
+
+            const resultText =
+                document.getElementById(
+                    "resultText"
+                );
+
+
+            result.style.display =
+                "block";
+
+
+            resultText.innerHTML =
+
+                "<b>Name:</b> " +
+                name.value +
+
+                " &nbsp; | &nbsp; " +
+
+                "<b>Plan:</b> " +
+                membership.value +
+
+                "<br>" +
+
+                "<b>BMI:</b> " +
+                bmi.textContent +
+
+                " &nbsp; | &nbsp; " +
+
+                "<b>Goal:</b> " +
+                document.getElementById(
+                    "goal"
+                ).value;
+
+
+        }
+    );
+
+
+    // =========================================
+    // RESET EVENT
+    // =========================================
+
+    form.addEventListener(
+        "reset",
+        function () {
+
+            setTimeout(function () {
+
+                document
+                    .querySelectorAll(
+                        "input, select"
+                    )
+                    .forEach(function (element) {
+
+                        element.classList.remove(
+                            "valid"
+                        );
+
+                        element.classList.remove(
+                            "invalid"
+                        );
+
+                    });
+
+
+                document
+                    .querySelectorAll(
+                        ".error"
+                    )
+                    .forEach(function (error) {
+
+                        error.textContent = "";
+
+                    });
+
+
+                plans.forEach(
+                    function (plan) {
+
+                        plan.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                strengthBar.style.width =
+                    "0%";
+
+
+                bmi.textContent =
+                    "--";
+
+
+                bmiStatus.textContent =
+                    "Enter height & weight";
+
+
+                preview.style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "result"
+                ).style.display =
+                    "none";
+
+
+            }, 0);
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
