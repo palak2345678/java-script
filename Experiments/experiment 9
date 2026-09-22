@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Local Storage and Session Storage</title>
+
+<style>
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+padding: 40px;
+font-family: Arial, Helvetica, sans-serif;
+background: #eef2f6;
+color: #1f2937;
+transition: 0.3s;
+}
+
+.container {
+width: 90%;
+max-width: 900px;
+margin: auto;
+background: white;
+padding: 35px;
+border: 1px solid #d1d5db;
+border-radius: 8px;
+box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+text-align: center;
+color: #17365d;
+margin-bottom: 8px;
+}
+
+.subtitle {
+text-align: center;
+color: #64748b;
+margin-bottom: 30px;
+}
+
+.section {
+border: 1px solid #d1d5db;
+padding: 22px;
+margin-bottom: 20px;
+border-radius: 6px;
+}
+
+.section h2 {
+margin-top: 0;
+color: #17365d;
+font-size: 20px;
+}
+
+button {
+padding: 11px 20px;
+margin: 6px;
+border: none;
+border-radius: 5px;
+background: #17365d;
+color: white;
+font-size: 15px;
+cursor: pointer;
+}
+
+button:hover {
+background: #244f7d;
+}
+
+.status {
+margin-top: 15px;
+padding: 12px;
+background: #f1f5f9;
+border-left: 4px solid #17365d;
+color: #374151;
+}
+
+.theme-box {
+margin-top: 20px;
+padding: 25px;
+text-align: center;
+border: 1px solid #cbd5e1;
+border-radius: 6px;
+}
+
+.developer {
+margin-top: 28px;
+padding: 14px;
+text-align: center;
+background: #f1f5f9;
+border-top: 2px solid #17365d;
+color: #374151;
+font-size: 14px;
+}
+
+.developer strong {
+color: #17365d;
+}
+
+/* Dark Theme */
+body.dark {
+background: #1e293b;
+color: #e5e7eb;
+}
+
+body.dark .container {
+background: #273449;
+border-color: #475569;
+}
+
+body.dark h1,
+body.dark .section h2 {
+color: #93c5fd;
+}
+
+body.dark .subtitle {
+color: #cbd5e1;
+}
+
+body.dark .section {
+border-color: #475569;
+}
+
+body.dark .status,
+body.dark .developer {
+background: #334155;
+color: #e5e7eb;
+}
+
+body.dark .theme-box {
+border-color: #475569;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>User Preference Settings</h1>
+
+<p class="subtitle">
+Implementing Local Storage and Session Storage for Theme Settings
+</p>
+
+
+<!-- Local Storage Section -->
+<div class="section">
+
+<h2>Local Storage</h2>
+
+<p>
+Saves the selected theme permanently in the browser.
+The preference remains available even after closing the browser.
+</p>
+
+<button onclick="saveLocalTheme('light')">
+Save Light Theme
+</button>
+
+<button onclick="saveLocalTheme('dark')">
+Save Dark Theme
+</button>
+
+<button onclick="getLocalTheme()">
+Get Saved Theme
+</button>
+
+<div id="localStatus" class="status">
+No local preference loaded.
+</div>
+
+</div>
+
+
+<!-- Session Storage Section -->
+<div class="section">
+
+<h2>Session Storage</h2>
+
+<p>
+Saves the selected theme only for the current browser tab/session.
+</p>
+
+<button onclick="saveSessionTheme('light')">
+Save Light Theme
+</button>
+
+<button onclick="saveSessionTheme('dark')">
+Save Dark Theme
+</button>
+
+<button onclick="getSessionTheme()">
+Get Session Theme
+</button>
+
+<div id="sessionStatus" class="status">
+No session preference loaded.
+</div>
+
+</div>
+
+
+<!-- Current Theme -->
+<div class="theme-box">
+
+<h2>Current Theme</h2>
+
+<p id="currentTheme">
+Current theme: Light
+</p>
+
+<button onclick="clearStorage()">
+Clear Saved Preferences
+</button>
+
+</div>
+
+
+<!-- Developer -->
+<div class="developer">
+
+<strong>Developer:</strong> Palak Hajare
+&nbsp; | &nbsp;
+<strong>PRN:</strong> 24070521237
+
+</div>
+
+</div>
+
+
+<script>
+
+// Apply theme
+function applyTheme(theme) {
+
+if (theme === "dark") {
+
+document.body.classList.add("dark");
+
+document.getElementById("currentTheme").innerHTML =
+"Current theme: Dark";
+
+} else {
+
+document.body.classList.remove("dark");
+
+document.getElementById("currentTheme").innerHTML =
+"Current theme: Light";
+}
+}
+
+
+// ==============================
+// LOCAL STORAGE
+// ==============================
+
+function saveLocalTheme(theme) {
+
+localStorage.setItem("theme", theme);
+
+applyTheme(theme);
+
+document.getElementById("localStatus").innerHTML =
+"Local Storage: " + theme + " theme saved successfully.";
+}
+
+
+function getLocalTheme() {
+
+let theme = localStorage.getItem("theme");
+
+if (theme) {
+
+applyTheme(theme);
+
+document.getElementById("localStatus").innerHTML =
+"Local Storage: Saved theme is " + theme + ".";
+
+} else {
+
+document.getElementById("localStatus").innerHTML =
+"No theme found in Local Storage.";
+}
+}
+
+
+// ==============================
+// SESSION STORAGE
+// ==============================
+
+function saveSessionTheme(theme) {
+
+sessionStorage.setItem("theme", theme);
+
+applyTheme(theme);
+
+document.getElementById("sessionStatus").innerHTML =
+"Session Storage: " + theme + " theme saved successfully.";
+}
+
+
+function getSessionTheme() {
+
+let theme = sessionStorage.getItem("theme");
+
+if (theme) {
+
+applyTheme(theme);
+
+document.getElementById("sessionStatus").innerHTML =
+"Session Storage: Saved theme is " + theme + ".";
+
+} else {
+
+document.getElementById("sessionStatus").innerHTML =
+"No theme found in Session Storage.";
+}
+}
+
+
+// ==============================
+// CLEAR STORAGE
+// ==============================
+
+function clearStorage() {
+
+localStorage.removeItem("theme");
+
+sessionStorage.removeItem("theme");
+
+applyTheme("light");
+
+document.getElementById("localStatus").innerHTML =
+"Local Storage preference cleared.";
+
+document.getElementById("sessionStatus").innerHTML =
+"Session Storage preference cleared.";
+}
+
+
+// Load saved preference when page opens
+window.onload = function() {
+
+let localTheme = localStorage.getItem("theme");
+
+if (localTheme) {
+applyTheme(localTheme);
+}
+};
+
+</script>
+
+</body>
+</html>
