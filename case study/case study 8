@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Job Application Form</title>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#eaf4f8;
+height:100vh;
+overflow:hidden; /* NO SCROLLING */
+display:flex;
+align-items:center;
+justify-content:center;
+padding:10px;
+}
+
+.container{
+width:98%;
+height:96vh;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+padding:15px 25px;
+}
+
+/* HEADER */
+
+.header{
+text-align:center;
+background:#e3f2fd;
+border-radius:10px;
+padding:10px;
+margin-bottom:10px;
+}
+
+.header h1{
+color:#1565c0;
+font-size:25px;
+}
+
+.header p{
+color:#607d8b;
+font-size:12px;
+margin-top:3px;
+}
+
+.developer{
+font-size:11px;
+margin-top:4px;
+color:#37474f;
+}
+
+/* SECTIONS */
+
+.section{
+margin-bottom:9px;
+}
+
+.section-title{
+color:#1565c0;
+font-size:15px;
+font-weight:bold;
+border-left:4px solid #42a5f5;
+padding-left:7px;
+margin-bottom:7px;
+}
+
+/* GRID */
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:7px 12px;
+}
+
+.form-group{
+display:flex;
+flex-direction:column;
+}
+
+.full{
+grid-column:span 2;
+}
+
+label{
+font-size:11px;
+font-weight:bold;
+margin-bottom:3px;
+}
+
+.required{
+color:red;
+}
+
+input,
+select,
+textarea{
+width:100%;
+height:30px;
+padding:5px 8px;
+border:1px solid #b0bec5;
+border-radius:5px;
+outline:none;
+font-size:11px;
+background:#fafafa;
+}
+
+textarea{
+height:35px;
+resize:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+border-color:#2196f3;
+background:white;
+}
+
+/* GENDER */
+
+.gender{
+height:30px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.gender label{
+font-weight:normal;
+display:flex;
+align-items:center;
+gap:4px;
+}
+
+.gender input{
+width:auto;
+height:auto;
+}
+
+/* SKILLS */
+
+.skills{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+align-items:center;
+}
+
+.skills label{
+font-weight:normal;
+display:flex;
+align-items:center;
+gap:4px;
+}
+
+.skills input{
+width:auto;
+height:auto;
+}
+
+/* VALIDATION */
+
+.error{
+color:#d32f2f;
+font-size:9px;
+height:10px;
+}
+
+.valid{
+border:1.5px solid #43a047 !important;
+background:#f4fff4;
+}
+
+.invalid{
+border:1.5px solid #e53935 !important;
+background:#fff5f5;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:5px;
+}
+
+button{
+border:none;
+padding:8px 25px;
+border-radius:6px;
+font-size:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.submit-btn{
+background:#1976d2;
+color:white;
+}
+
+.submit-btn:hover{
+background:#0d47a1;
+}
+
+.reset-btn{
+background:#eceff1;
+color:#37474f;
+}
+
+.success{
+display:none;
+text-align:center;
+color:#2e7d32;
+font-size:12px;
+margin-top:6px;
+font-weight:bold;
+}
+
+/* SMALLER LAPTOPS */
+
+@media(max-width:1100px){
+.container{
+padding:12px 18px;
+}
+
+.form-grid{
+gap:5px 8px;
+}
+
+input,select{
+height:27px;
+}
+
+.header h1{
+font-size:21px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+<h1>Online Job Application Form</h1>
+<p>Please enter your information carefully</p>
+
+<div class="developer">
+Developed by <b>Palak Hajare</b> |
+PRN: <b>24070521237</b>
+</div>
+</div>
+
+
+<form id="jobForm" novalidate>
+
+<!-- PERSONAL INFORMATION -->
+
+<div class="section">
+
+<div class="section-title">Personal Information</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Full Name <span class="required">*</span></label>
+<input type="text" id="name" placeholder="Enter full name">
+<span class="error" id="nameError"></span>
+</div>
+
+<div class="form-group">
+<label>Date of Birth <span class="required">*</span></label>
+<input type="date" id="dob">
+<span class="error" id="dobError"></span>
+</div>
+
+<div class="form-group">
+<label>Gender <span class="required">*</span></label>
+
+<div class="gender">
+<label><input type="radio" name="gender" value="Male"> Male</label>
+<label><input type="radio" name="gender" value="Female"> Female</label>
+<label><input type="radio" name="gender" value="Other"> Other</label>
+</div>
+
+<span class="error" id="genderError"></span>
+</div>
+
+<div class="form-group">
+<label>Email Address <span class="required">*</span></label>
+<input type="email" id="email" placeholder="example@gmail.com">
+<span class="error" id="emailError"></span>
+</div>
+
+<div class="form-group">
+<label>Mobile Number <span class="required">*</span></label>
+<input type="text" id="mobile" maxlength="10"
+placeholder="10-digit number">
+<span class="error" id="mobileError"></span>
+</div>
+
+<div class="form-group">
+<label>City</label>
+<input type="text" id="city" placeholder="Enter city">
+<span class="error"></span>
+</div>
+
+<div class="form-group">
+<label>State <span class="required">*</span></label>
+<select id="state">
+<option value="">Select State</option>
+<option>Maharashtra</option>
+<option>Gujarat</option>
+<option>Goa</option>
+<option>Karnataka</option>
+<option>Delhi</option>
+<option>Other</option>
+</select>
+<span class="error" id="stateError"></span>
+</div>
+
+<div class="form-group">
+<label>PIN Code <span class="required">*</span></label>
+<input type="text" id="pin" maxlength="6"
+placeholder="6-digit PIN">
+<span class="error" id="pinError"></span>
+</div>
+
+<div class="form-group full">
+<label>Address <span class="required">*</span></label>
+<textarea id="address" placeholder="Enter complete address"></textarea>
+<span class="error" id="addressError"></span>
+</div>
+
+</div>
+</div>
+
+
+<!-- EDUCATIONAL QUALIFICATION -->
+
+<div class="section">
+
+<div class="section-title">Educational Qualification</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Highest Qualification <span class="required">*</span></label>
+<select id="qualification">
+<option value="">Select Qualification</option>
+<option>10th</option>
+<option>12th</option>
+<option>Diploma</option>
+<option>Graduate</option>
+<option>Post Graduate</option>
+<option>PhD</option>
+</select>
+<span class="error" id="qualificationError"></span>
+</div>
+
+<div class="form-group">
+<label>University / Institute <span class="required">*</span></label>
+<input type="text" id="university"
+placeholder="University / Institute">
+<span class="error" id="universityError"></span>
+</div>
+
+<div class="form-group">
+<label>Passing Year <span class="required">*</span></label>
+<input type="number" id="year"
+placeholder="e.g. 2025">
+<span class="error" id="yearError"></span>
+</div>
+
+<div class="form-group">
+<label>Percentage / CGPA <span class="required">*</span></label>
+<input type="text" id="score"
+placeholder="e.g. 85% / 8.5 CGPA">
+<span class="error" id="scoreError"></span>
+</div>
+
+</div>
+</div>
+
+
+<!-- PROFESSIONAL INFORMATION -->
+
+<div class="section">
+
+<div class="section-title">Professional Information</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Applying For / Job Position <span class="required">*</span></label>
+<select id="position">
+<option value="">Select Position</option>
+<option>Software Developer</option>
+<option>Web Developer</option>
+<option>Data Analyst</option>
+<option>AI/ML Engineer</option>
+<option>UI/UX Designer</option>
+<option>Intern</option>
+</select>
+<span class="error" id="positionError"></span>
+</div>
+
+<div class="form-group">
+<label>Total Work Experience <span class="required">*</span></label>
+<select id="experience">
+<option value="">Select Experience</option>
+<option>Fresher</option>
+<option>Less than 1 Year</option>
+<option>1 - 2 Years</option>
+<option>2 - 5 Years</option>
+<option>More than 5 Years</option>
+</select>
+<span class="error" id="experienceError"></span>
+</div>
+
+<div class="form-group">
+<label>Current / Previous Organization</label>
+<input type="text" id="organization"
+placeholder="Organization name">
+</div>
+
+<div class="form-group">
+<label>Current Designation</label>
+<input type="text" id="designation"
+placeholder="Designation">
+</div>
+
+</div>
+</div>
+
+
+<!-- TECHNICAL SKILLS -->
+
+<div class="section">
+
+<div class="section-title">Technical Skills</div>
+
+<div class="skills">
+
+<label><input type="checkbox" value="HTML"> HTML</label>
+<label><input type="checkbox" value="CSS"> CSS</label>
+<label><input type="checkbox" value="JavaScript"> JavaScript</label>
+<label><input type="checkbox" value="Python"> Python</label>
+<label><input type="checkbox" value="Java"> Java</label>
+<label><input type="checkbox" value="SQL"> SQL</label>
+<label><input type="checkbox" value="Machine Learning"> Machine Learning</label>
+<label><input type="checkbox" value="React"> React</label>
+
+</div>
+
+<span class="error" id="skillsError"></span>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button type="submit" class="submit-btn">
+Submit Application
+</button>
+
+<button type="reset" class="reset-btn">
+Reset
+</button>
+
+</div>
+
+<div class="success" id="successMessage">
+✓ Application submitted successfully!
+</div>
+
+</form>
+
+</div>
+
+
+<script>
+
+/* NAME - LIVE VALIDATION */
+document.getElementById("name").addEventListener("input", function(){
+
+let value=this.value.trim();
+
+if(value===""){
+this.classList.add("invalid");
+this.classList.remove("valid");
+nameError.innerText="Name is required";
+}
+else if(!/^[A-Za-z ]+$/.test(value)){
+this.classList.add("invalid");
+this.classList.remove("valid");
+nameError.innerText="Only letters allowed";
+}
+else{
+this.classList.add("valid");
+this.classList.remove("invalid");
+nameError.innerText="";
+}
+});
+
+
+/* EMAIL - LIVE VALIDATION */
+document.getElementById("email").addEventListener("input",function(){
+
+let pattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(pattern.test(this.value)){
+this.classList.add("valid");
+this.classList.remove("invalid");
+emailError.innerText="";
+}
+else{
+this.classList.add("invalid");
+this.classList.remove("valid");
+emailError.innerText="Enter valid email";
+}
+});
+
+
+/* MOBILE - LIVE VALIDATION */
+document.getElementById("mobile").addEventListener("input",function(){
+
+this.value=this.value.replace(/\D/g,"");
+
+if(/^[6-9][0-9]{9}$/.test(this.value)){
+this.classList.add("valid");
+this.classList.remove("invalid");
+mobileError.innerText="";
+}
+else{
+this.classList.add("invalid");
+this.classList.remove("valid");
+mobileError.innerText="Enter valid 10-digit number";
+}
+});
+
+
+/* PIN - LIVE VALIDATION */
+document.getElementById("pin").addEventListener("input",function(){
+
+this.value=this.value.replace(/\D/g,"");
+
+if(/^[0-9]{6}$/.test(this.value)){
+this.classList.add("valid");
+this.classList.remove("invalid");
+pinError.innerText="";
+}
+else{
+this.classList.add("invalid");
+this.classList.remove("valid");
+pinError.innerText="PIN must contain 6 digits";
+}
+});
+
+
+/* ADDRESS */
+document.getElementById("address").addEventListener("input",function(){
+
+if(this.value.trim().length>=10){
+this.classList.add("valid");
+this.classList.remove("invalid");
+addressError.innerText="";
+}
+else{
+this.classList.add("invalid");
+this.classList.remove("valid");
+addressError.innerText="Enter complete address";
+}
+});
+
+
+/* DROPDOWNS */
+["state","qualification","position","experience"].forEach(function(id){
+
+document.getElementById(id).addEventListener("change",function(){
+
+let error=document.getElementById(id+"Error");
+
+if(this.value===""){
+this.classList.add("invalid");
+this.classList.remove("valid");
+error.innerText="Please select an option";
+}
+else{
+this.classList.add("valid");
+this.classList.remove("invalid");
+error.innerText="";
+}
+});
+
+});
+
+
+/* FORM SUBMIT */
+document.getElementById("jobForm").addEventListener("submit",function(event){
+
+event.preventDefault();
+
+let valid=true;
+
+let requiredFields=[
+["name","nameError"],
+["email","emailError"],
+["mobile","mobileError"],
+["dob","dobError"],
+["address","addressError"],
+["state","stateError"],
+["pin","pinError"],
+["qualification","qualificationError"],
+["university","universityError"],
+["year","yearError"],
+["score","scoreError"],
+["position","positionError"],
+["experience","experienceError"]
+];
+
+requiredFields.forEach(function(item){
+
+let field=document.getElementById(item[0]);
+
+if(field.value.trim()===""){
+field.classList.add("invalid");
+document.getElementById(item[1]).innerText=
+"This field is required";
+valid=false;
+}
+
+});
+
+
+/* Gender */
+if(!document.querySelector('input[name="gender"]:checked')){
+genderError.innerText="Select gender";
+valid=false;
+}
+else{
+genderError.innerText="";
+}
+
+
+/* Skills */
+if(document.querySelectorAll('.skills input:checked').length===0){
+skillsError.innerText="Select at least one skill";
+valid=false;
+}
+else{
+skillsError.innerText="";
+}
+
+
+if(valid){
+
+document.getElementById("successMessage").style.display="block";
+
+alert("Application submitted successfully!");
+
+}
+else{
+
+alert("Please correct the highlighted fields.");
+
+}
+
+});
+
+
+/* RESET */
+document.getElementById("jobForm").addEventListener("reset",function(){
+
+setTimeout(function(){
+
+document.querySelectorAll("input,select,textarea")
+.forEach(function(element){
+element.classList.remove("valid","invalid");
+});
+
+document.querySelectorAll(".error")
+.forEach(function(error){
+error.innerText="";
+});
+
+document.getElementById("successMessage")
+.style.display="none";
+
+},10);
+
+});
+
+</script>
+
+</body>
+</html>
